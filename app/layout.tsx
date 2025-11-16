@@ -15,6 +15,33 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Kto dla kogo?",
   description: "Wylosuj osobę, której zrobisz prezent",
+  category: "website",
+  keywords: [
+    "patryk makarewicz",
+    "makadev",
+    "prezent",
+    "prezenty",
+    "losowanie",
+    "losowanie prezentu",
+  ],
+  authors: [
+    { name: "Patryk Makarewicz" },
+    {
+      name: "Patryk Makarewicz",
+      url: "https://www.linkedin.com/in/patryk-makarewicz/",
+    },
+  ],
+  openGraph: {
+    title: "Kto dla kogo?",
+    description: "Wylosuj osobę, której zrobisz prezent",
+    images: ["/cover.png"],
+    url: "https://kto-dla-kogo.vercel.app",
+    siteName: "Kto dla kogo?",
+  },
+  metadataBase: new URL("https://kto-dla-kogo.vercel.app"),
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
