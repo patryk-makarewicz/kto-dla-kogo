@@ -1,7 +1,7 @@
 import { Gift } from "lucide-react";
 import { UsersForm } from "@/components/";
 
-const Draw = () => {
+const Users = () => {
   return (
     <main className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="flex w-full max-w-md flex-col gap-6">
@@ -15,4 +15,4 @@ const Draw = () => {
   );
 };
 
-export default Draw;
+export default Users;

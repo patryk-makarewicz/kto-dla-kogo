@@ -28,7 +28,7 @@ const Home = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Link href="/draw">
+              <Link href="/users">
                 <Button className="w-full cursor-pointer">Zaczynamy</Button>
               </Link>
             </CardContent>
