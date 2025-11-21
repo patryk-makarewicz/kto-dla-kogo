@@ -44,7 +44,7 @@ export const UsersForm = () => {
     const names = data.users.map((u) => u.name);
     const draw = drawUsers(names);
     setResults(draw);
-    toast.success('Gratulacje! Losowanie zakonczyło sie sukcesem.');
+    toast.success('Gratulacje! Losowanie zakonczyło się sukcesem.');
     router.push('/results');
   };
 
