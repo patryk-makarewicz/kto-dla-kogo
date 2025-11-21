@@ -27,10 +27,12 @@ export const UsersForm = () => {
   const router = useRouter();
   const { users, setUsers, setResults } = useUsers();
 
+  const initialUsers = [{ name: '' }];
+
   const form = useForm<UsersFormValuesType>({
     resolver: zodResolver(UsersFormSchema),
     defaultValues: {
-      users: users.length > 0 ? users : [{ name: '' }]
+      users: users.length > 0 ? users : initialUsers
     }
   });
 
@@ -46,6 +48,12 @@ export const UsersForm = () => {
     setResults(draw);
     toast.success('Gratulacje! Losowanie zakonczyło się sukcesem.');
     router.push('/results');
+  };
+
+  const onReset = () => {
+    setUsers(initialUsers);
+    setResults(null);
+    form.reset({ users: initialUsers });
   };
 
   return (
@@ -101,7 +109,7 @@ export const UsersForm = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => append({ name: '' })}
-                disabled={fields.length >= 5}>
+                disabled={fields.length >= 20}>
                 Dodaj kolejną osobę
               </Button>
             </FieldGroup>
@@ -111,7 +119,7 @@ export const UsersForm = () => {
       </CardContent>
       <CardFooter className="border-t">
         <Field orientation="horizontal" className="justify-end">
-          <Button type="button" variant="outline" onClick={() => form.reset()}>
+          <Button type="button" variant="outline" onClick={onReset}>
             Zresetuj
           </Button>
           <Button type="submit" form="form-rhf-array">
