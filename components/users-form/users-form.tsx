@@ -1,19 +1,16 @@
-"use client";
-import * as React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { XIcon } from "lucide-react";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+'use client';
+
+import { useRouter } from 'next/navigation';
+
+import { UsersFormSchema, UsersFormValuesType } from '@/model/users.model';
+import { useUsers } from '@/providers';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { XIcon } from 'lucide-react';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Field,
   FieldContent,
@@ -21,65 +18,49 @@ import {
   FieldError,
   FieldGroup,
   FieldLegend,
-  FieldSet,
-} from "@/components/ui/field";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/input-group";
-
-const formSchema = z.object({
-  users: z
-    .array(
-      z.object({
-        name: z
-          .string()
-          .min(3, { message: "Minimalnie 3 znaki" })
-          .max(32, { message: "Maksymalnie 32 znaki" }),
-      })
-    )
-    .min(2, "Wprowadz co najmniej 2 imiona")
-    .max(20, "Możesz dodać maksymalnie 20 imion"),
-});
+  FieldSet
+} from '@/components/ui/field';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
+import { drawUsers } from '@/lib/draw';
 
 export const UsersForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const router = useRouter();
+  const { users, setUsers, setResults } = useUsers();
+
+  const initialUsers = [{ name: '' }];
+
+  const form = useForm<UsersFormValuesType>({
+    resolver: zodResolver(UsersFormSchema),
     defaultValues: {
-      users: [{ name: "" }],
-    },
+      users: users.length > 0 ? users : initialUsers
+    }
   });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "users",
+    name: 'users'
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    toast("Zapisane dane:", {
-      description: (
-        <pre className="bg-code text-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
-      },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
-    });
+  const onSubmit = (data: UsersFormValuesType) => {
+    setUsers(data.users);
+    const names = data.users.map((u) => u.name);
+    const draw = drawUsers(names);
+    setResults(draw);
+    toast.success('Gratulacje! Losowanie zakonczyło się sukcesem.');
+    router.push('/results');
   };
+
+  const onReset = () => {
+    setUsers(initialUsers);
+    setResults(null);
+    form.reset({ users: initialUsers });
+  };
+
   return (
-    <Card className="w-full ">
+    <Card className="w-full">
       <CardHeader className="border-b">
         <CardTitle>Wprowadz osoby</CardTitle>
-        <CardDescription>
-          Wpisz imiona osób które mają być wylosowane.
-        </CardDescription>
+        <CardDescription>Wpisz imiona osób które biorą udział w losowaniu.</CardDescription>
       </CardHeader>
       <CardContent>
         <form id="form-rhf-array" onSubmit={form.handleSubmit(onSubmit)}>
@@ -93,10 +74,7 @@ export const UsersForm = () => {
                   name={`users.${index}.name`}
                   control={form.control}
                   render={({ field: controllerField, fieldState }) => (
-                    <Field
-                      orientation="horizontal"
-                      data-invalid={fieldState.invalid}
-                    >
+                    <Field orientation="horizontal" data-invalid={fieldState.invalid}>
                       <FieldContent>
                         <InputGroup>
                           <InputGroupInput
@@ -114,16 +92,13 @@ export const UsersForm = () => {
                                 variant="ghost"
                                 size="icon-xs"
                                 onClick={() => remove(index)}
-                                aria-label={`Usuń imię ${index + 1}`}
-                              >
+                                aria-label={`Usuń imię ${index + 1}`}>
                                 <XIcon />
                               </InputGroupButton>
                             </InputGroupAddon>
                           )}
                         </InputGroup>
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
+                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                       </FieldContent>
                     </Field>
                   )}
@@ -133,25 +108,22 @@ export const UsersForm = () => {
                 type="button"
                 variant="outline"
                 size="sm"
-                onClick={() => append({ name: "" })}
-                disabled={fields.length >= 5}
-              >
-                Dodaj osobę
+                onClick={() => append({ name: '' })}
+                disabled={fields.length >= 20}>
+                Dodaj kolejną osobę
               </Button>
             </FieldGroup>
-            {form.formState.errors.users?.root && (
-              <FieldError errors={[form.formState.errors.users.root]} />
-            )}
+            {form.formState.errors.users?.root && <FieldError errors={[form.formState.errors.users.root]} />}
           </FieldSet>
         </form>
       </CardContent>
       <CardFooter className="border-t">
-        <Field orientation="horizontal" className="justify-end ">
-          <Button type="button" variant="outline" onClick={() => form.reset()}>
+        <Field orientation="horizontal" className="justify-end">
+          <Button type="button" variant="outline" onClick={onReset}>
             Zresetuj
           </Button>
           <Button type="submit" form="form-rhf-array">
-            Zapisz
+            Losowanie
           </Button>
         </Field>
       </CardFooter>
