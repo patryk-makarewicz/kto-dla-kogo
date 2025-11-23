@@ -41,7 +41,8 @@ export const DrawFormFields = ({ initialUsers, onSubmit }: DrawFormFieldsProps) 
 
   useEffect(() => {
     form.reset({ users: initialUsers });
-  }, [initialUsers, form]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialUsers]);
 
   return (
     <form id="form-rhf-array" onSubmit={form.handleSubmit(onSubmit)}>

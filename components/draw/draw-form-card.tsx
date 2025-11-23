@@ -1,4 +1,5 @@
 import { UsersFormValuesType } from '@/model/users.model';
+import { memo } from 'react';
 
 import {
   Button,
@@ -21,7 +22,7 @@ interface DrawFormCardProps {
   isLoading: boolean;
 }
 
-export const DrawFormCard = ({ initialUsers, onSubmit, onReset, isLoading }: DrawFormCardProps) => (
+export const DrawFormCard = memo(({ initialUsers, onSubmit, onReset, isLoading }: DrawFormCardProps) => (
   <Card className="w-full">
     <CardHeader className="border-b">
       <CardTitle>Wprowadz osoby</CardTitle>
@@ -42,4 +43,6 @@ export const DrawFormCard = ({ initialUsers, onSubmit, onReset, isLoading }: Dra
       </Field>
     </CardFooter>
   </Card>
-);
+));
+
+DrawFormCard.displayName = 'DrawFormCard';

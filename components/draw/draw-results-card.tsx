@@ -1,4 +1,5 @@
 import { DrawResult } from '@/contexts/users-context';
+import { memo } from 'react';
 
 import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Field } from '@/components/ui';
 
@@ -9,7 +10,7 @@ interface DrawResultsCardProps {
   onEditAgain: () => void;
 }
 
-export const DrawResultsCard = ({ results, onEditAgain }: DrawResultsCardProps) => (
+export const DrawResultsCard = memo(({ results, onEditAgain }: DrawResultsCardProps) => (
   <Card className="w-full">
     <CardHeader className="border-b">
       <CardTitle>Wyniki losowania</CardTitle>
@@ -26,4 +27,6 @@ export const DrawResultsCard = ({ results, onEditAgain }: DrawResultsCardProps) 
       </Field>
     </CardFooter>
   </Card>
-);
+));
+
+DrawResultsCard.displayName = 'DrawResultsCard';
