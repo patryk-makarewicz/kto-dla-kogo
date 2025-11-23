@@ -1,6 +1,6 @@
-import { DrawResult } from "@/contexts";
+import { DrawResult } from '@/contexts';
 
-export const drawUsers = (users: string[]): DrawResult[] | null => {
+export const drawUsers = async (users: string[]): Promise<DrawResult[] | null> => {
   const n = users.length;
 
   if (n < 2) return null;

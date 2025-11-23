@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { UsersProvider } from '@/providers/';
 
 import { Toaster } from '@/components/ui/sonner';
+import PageLayout from '@/layouts/page-layout';
 
 import './globals.css';
 
@@ -50,7 +51,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <UsersProvider>{children}</UsersProvider>
+        <UsersProvider>
+          <PageLayout>{children}</PageLayout>
+        </UsersProvider>
         <Toaster />
       </body>
     </html>
