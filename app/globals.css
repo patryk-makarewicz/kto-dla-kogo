@@ -140,3 +140,52 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
+
+/* Card flip animation */
+.flip-container {
+  perspective: 1000px;
+  width: 100%;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Front card determines container height when not flipped */
+.flip-card:not(.flipped) .flip-card-front {
+  position: relative;
+}
+
+.flip-card:not(.flipped) .flip-card-back {
+  position: absolute;
+}
+
+/* Back card determines container height when flipped */
+.flip-card.flipped .flip-card-front {
+  position: absolute;
+}
+
+.flip-card.flipped .flip-card-back {
+  position: relative;
+}
