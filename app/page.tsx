@@ -11,7 +11,7 @@ const Home = () => {
           <CardDescription>Wylosuj osobę, której zrobisz prezent</CardDescription>
         </CardHeader>
         <CardContent>
-          <Link href="/users">
+          <Link href="/draw">
             <Button className="w-full cursor-pointer">Zaczynamy</Button>
           </Link>
         </CardContent>
