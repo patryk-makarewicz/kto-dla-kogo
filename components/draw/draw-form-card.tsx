@@ -11,17 +11,16 @@ import {
   Spinner
 } from '@/components/ui';
 import { Field } from '@/components/ui/field';
+import { DrawFormFields } from './draw-form-fields';
 
-import { UsersFormFields } from './users-form-fields';
-
-interface UsersFormCardProps {
+interface DrawFormCardProps {
   initialUsers: { name: string }[];
   onSubmit: (data: UsersFormValuesType) => Promise<void>;
   onReset: () => void;
   isLoading: boolean;
 }
 
-export const UsersFormCard = ({ initialUsers, onSubmit, onReset, isLoading }: UsersFormCardProps) => {
+export const DrawFormCard = ({ initialUsers, onSubmit, onReset, isLoading }: DrawFormCardProps) => {
   return (
     <Card className="w-full">
       <CardHeader className="border-b">
@@ -29,7 +28,7 @@ export const UsersFormCard = ({ initialUsers, onSubmit, onReset, isLoading }: Us
         <CardDescription>Wpisz imiona osób które biorą udział w losowaniu.</CardDescription>
       </CardHeader>
       <CardContent>
-        <UsersFormFields initialUsers={initialUsers} onSubmit={onSubmit} onReset={onReset} isLoading={isLoading} />
+        <DrawFormFields initialUsers={initialUsers} onSubmit={onSubmit} onReset={onReset} isLoading={isLoading} />
       </CardContent>
       <CardFooter className="border-t">
         <Field orientation="horizontal" className="justify-end">
@@ -45,3 +44,5 @@ export const UsersFormCard = ({ initialUsers, onSubmit, onReset, isLoading }: Us
     </Card>
   );
 };
+
+

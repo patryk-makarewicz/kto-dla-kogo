@@ -7,10 +7,10 @@ import { toast } from 'sonner';
 
 import { drawUsers } from '@/lib/draw';
 
-import { UsersFormCard } from './users-form-card';
-import { UsersResultsCard } from './users-results-card';
+import { DrawFormCard } from './draw-form-card';
+import { DrawResultsCard } from './draw-results-card';
 
-export const UsersForm = () => {
+export const Draw = () => {
   const { users, setUsers, results, setResults } = useUsers();
   const [isFlipped, setIsFlipped] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +52,7 @@ export const UsersForm = () => {
       <div className={`flip-card ${isFlipped ? 'flipped' : ''}`}>
         {/* Front side - Form */}
         <div className="flip-card-front">
-          <UsersFormCard
+          <DrawFormCard
             initialUsers={users.length > 0 ? users : initialUsers}
             onSubmit={onSubmit}
             onReset={onReset}
@@ -62,7 +62,7 @@ export const UsersForm = () => {
 
         {/* Back side - Results */}
         <div className="flip-card-back">
-          {results && results.length > 0 && <UsersResultsCard results={results} onEditAgain={onEditAgain} />}
+          {results && results.length > 0 && <DrawResultsCard results={results} onEditAgain={onEditAgain} />}
         </div>
       </div>
     </div>

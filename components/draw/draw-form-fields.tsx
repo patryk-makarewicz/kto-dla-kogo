@@ -1,7 +1,6 @@
 'use client';
 
-import { UsersFormValuesType } from '@/model/users.model';
-import { UsersFormSchema } from '@/model/users.model';
+import { UsersFormValuesType, UsersFormSchema } from '@/model/users.model';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { XIcon } from 'lucide-react';
 import { useEffect } from 'react';
@@ -19,14 +18,14 @@ import {
 } from '@/components/ui/field';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 
-interface UsersFormFieldsProps {
+interface DrawFormFieldsProps {
   initialUsers: { name: string }[];
   onSubmit: (data: UsersFormValuesType) => Promise<void>;
   onReset: () => void;
   isLoading: boolean;
 }
 
-export const UsersFormFields = ({ initialUsers, onSubmit, onReset, isLoading }: UsersFormFieldsProps) => {
+export const DrawFormFields = ({ initialUsers, onSubmit, onReset, isLoading }: DrawFormFieldsProps) => {
   const form = useForm<UsersFormValuesType>({
     resolver: zodResolver(UsersFormSchema),
     defaultValues: {
@@ -100,3 +99,5 @@ export const UsersFormFields = ({ initialUsers, onSubmit, onReset, isLoading }: 
     </form>
   );
 };
+
+

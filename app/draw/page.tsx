@@ -1,11 +1,11 @@
-import { UsersForm } from '@/components/';
+import { Draw } from '@/components/';
 
-const Users = () => {
+const DrawPage = () => {
   return (
     <>
-      <UsersForm />
+      <Draw />
     </>
   );
 };
 
-export default Users;
+export default DrawPage;
