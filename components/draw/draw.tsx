@@ -1,51 +1,12 @@
 'use client';
 
-import { UsersFormValuesType } from '@/model/users.model';
-import { useUsers } from '@/providers';
-import { useState } from 'react';
-import { toast } from 'sonner';
-
-import { drawUsers } from '@/lib/draw';
+import { useDraw } from '@/hooks';
 
 import { DrawFormCard } from './draw-form-card';
 import { DrawResultsCard } from './draw-results-card';
 
 export const Draw = () => {
-  const { users, setUsers, results, setResults } = useUsers();
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const initialUsers = [{ name: '' }];
-
-  const onSubmit = async (data: UsersFormValuesType) => {
-    setIsLoading(true);
-    setUsers(data.users);
-
-    // Symulacja opóźnienia dla lepszego UX (opcjonalne)
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    const names = data.users.map((u) => u.name);
-    const draw = drawUsers(names);
-    setResults(draw);
-    setIsLoading(false);
-    setIsFlipped(true);
-    toast.success('Gratulacje! Losowanie zakonczyło się sukcesem.');
-  };
-
-  const onReset = () => {
-    setUsers(initialUsers);
-    setResults(null);
-    setIsFlipped(false);
-  };
-
-  const onEditAgain = () => {
-    // Najpierw obróć kartę
-    setIsFlipped(false);
-    // Opóźnij usunięcie wyników, aby karta najpierw się obróciła
-    setTimeout(() => {
-      setResults(null);
-    }, 600); // Czas trwania animacji flip (0.6s)
-  };
+  const { users, initialUsers, results, isFlipped, isLoading, onSubmit, onReset, onEditAgain } = useDraw();
 
   return (
     <div className="flip-container">

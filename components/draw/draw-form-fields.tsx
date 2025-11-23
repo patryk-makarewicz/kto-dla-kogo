@@ -6,26 +6,27 @@ import { XIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 
-import { Button } from '@/components/ui';
 import {
+  Button,
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLegend,
-  FieldSet
-} from '@/components/ui/field';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
+  FieldSet,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput
+} from '@/components/ui';
 
 interface DrawFormFieldsProps {
   initialUsers: { name: string }[];
   onSubmit: (data: UsersFormValuesType) => Promise<void>;
-  onReset: () => void;
-  isLoading: boolean;
 }
 
-export const DrawFormFields = ({ initialUsers, onSubmit, onReset, isLoading }: DrawFormFieldsProps) => {
+export const DrawFormFields = ({ initialUsers, onSubmit }: DrawFormFieldsProps) => {
   const form = useForm<UsersFormValuesType>({
     resolver: zodResolver(UsersFormSchema),
     defaultValues: {
@@ -38,7 +39,6 @@ export const DrawFormFields = ({ initialUsers, onSubmit, onReset, isLoading }: D
     name: 'users'
   });
 
-  // Synchronizuj formularz z initialUsers
   useEffect(() => {
     form.reset({ users: initialUsers });
   }, [initialUsers, form]);
@@ -99,5 +99,3 @@ export const DrawFormFields = ({ initialUsers, onSubmit, onReset, isLoading }: D
     </form>
   );
 };
-
-
