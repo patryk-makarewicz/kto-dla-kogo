@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, FieldDescription } from '@/components/ui';
+import { Footer } from '@/components/';
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
 
 const Home = () => {
   return (
@@ -10,16 +11,18 @@ const Home = () => {
           <CardTitle className="text-xl">Witaj!</CardTitle>
           <CardDescription>Wylosuj osobę, której zrobisz prezent</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex flex-col gap-5">
+          <Link href="/donation">
+            <Button variant={'outline'} className="w-full cursor-pointer">
+              Wsparcie
+            </Button>
+          </Link>
           <Link href="/draw">
             <Button className="w-full cursor-pointer">Zaczynamy</Button>
           </Link>
         </CardContent>
       </Card>
-      <FieldDescription className="px-6 text-center">
-        Przez kliknięcie &quot;Zaczynamy&quot;, akceptujesz nasz <a href="#">Regulamin</a> oraz{' '}
-        <a href="#">Politykę prywatności</a>.
-      </FieldDescription>
+      <Footer />
     </div>
   );
 };
