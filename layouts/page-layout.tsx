@@ -1,4 +1,4 @@
-import { Header } from '@/components/';
+import { CoffeeButton, Header } from '@/components/';
 
 export default function PageLayout({
   children
@@ -10,6 +10,9 @@ export default function PageLayout({
       <div className="flex w-full max-w-md flex-col gap-6">
         <Header />
         {children}
+        <div className="fixed right-4 bottom-4">
+          <CoffeeButton />
+        </div>
       </div>
     </main>
   );
