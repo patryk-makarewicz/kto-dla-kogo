@@ -2,36 +2,36 @@
 
 # Kto dla kogo?
 
-Losowanie prezentów dla rodziny i znajomych: każdy uczestnik robi prezent **dokładnie jednej** osobie.
-Zamiast 13 drobiazgów w 14-osobowej rodzinie — jeden przemyślany prezent.
+A gift exchange draw for family and friends: each participant gives a gift to **exactly one** other person.
+Instead of 13 small gifts in a family of 14 — one thoughtful present.
 
 https://kto-dla-kogo.vercel.app
 
-## Funkcje
+## Features
 
-- okazja z nazwą, budżetem i datą wręczenia,
-- 3–30 uczestników (dowolna liczba, także nieparzysta), unikalne imiona,
-- wykluczenia par (np. małżonkowie nie trafią na siebie),
-- prywatny link dla każdej osoby — wysyłany SMS-em, WhatsAppem lub kopiowany; wynik zakodowany w `/wynik#…`, bez backendu.
+- an occasion with a name, budget, and gift-giving date,
+- 3–30 participants (any number, including odd numbers), unique names,
+- pair exclusions (e.g. spouses won't be assigned to each other),
+- a private link for each person — shareable via SMS, WhatsApp, or by copying; the result is encoded in `/wynik#…`, with no backend required.
 
-## Algorytm
+## Algorithm
 
-[`lib/draw.ts`](lib/draw.ts): najpierw losowanie Fisher–Yates z odrzucaniem (rozkład jednostajny),
-a gdy wykluczenia są bardzo restrykcyjne — randomizowane dopasowanie dwudzielne (algorytm Kuhna).
-Jeśli poprawne przypisanie nie istnieje, zwraca `{ ok: false, reason: 'impossible' }`.
+[`lib/draw.ts`](lib/draw.ts): first, a Fisher–Yates shuffle with rejection sampling (uniform distribution),
+and when exclusions are highly restrictive — randomized bipartite matching (Kuhn's algorithm).
+If no valid assignment exists, it returns `{ ok: false, reason: 'impossible' }`.
 
-## Struktura
+## Structure
 
+```text
+app/                 routes: / (home), /losowanie (wizard), /wynik (result reveal), /dotacja
+features/draw/       wizard: steps, state (Context + useReducer + localStorage)
+features/reveal/     result reveal page
+lib/                 pure logic: draw, share, phone, storage, format
+model/               zod schemas
+components/          shared: header, footer, coffee, regulations, ui (shadcn)
 ```
-app/                 trasy: / (start), /losowanie (kreator), /wynik (odkrycie wyniku), /dotacja
-features/draw/       kreator: kroki, stan (Context + useReducer + localStorage)
-features/reveal/     strona odkrycia wyniku
-lib/                 czysta logika: draw, share, phone, storage, format
-model/               schematy zod
-components/          współdzielone: header, footer, coffee, regulations, ui (shadcn)
-```
 
-## Uruchomienie
+## Getting Started
 
 ```bash
 npm install
