@@ -18,7 +18,7 @@ export const Footer = () => {
         </span>
       </div>
       <FieldDescription className="px-6 text-center text-xs">
-        Copyright Ⓒ {year} Kto dla kogo?, ver. 1.1
+        Copyright Ⓒ {year} Kto dla kogo?, ver. 1.2.0
       </FieldDescription>
     </footer>
   );
