@@ -260,9 +260,31 @@ export const PrivacyPolicy = () => (
         </li>
       </ol>
       <h3 className="my-2 text-center">
-        <strong>Zmiany i aktualizacje Polityki prywatności</strong>
+        <strong>Dane wprowadzane do losowania</strong>
         <p>
           <strong>&sect;7</strong>
+        </p>
+      </h3>
+      <ol>
+        <li>
+          Imiona, numery telefonów, wykluczenia oraz wyniki losowania są przetwarzane wyłącznie w przeglądarce
+          Użytkownika i zapisywane w jej pamięci lokalnej (localStorage). Administrator nie przesyła ich na żaden serwer
+          i nie ma do nich dostępu.
+        </li>
+        <li>
+          Link z wynikiem losowania zawiera w swojej treści imię osoby obdarowującej, imię osoby obdarowanej oraz
+          informacje o okazji. Dane te znajdują się we fragmencie adresu po znaku „#”, który nie jest przesyłany do
+          serwera. Link przekazuje Użytkownik, korzystając z wybranej przez siebie aplikacji (np. SMS, WhatsApp).
+        </li>
+        <li>
+          Użytkownik może w każdej chwili usunąć zapisane dane, wybierając opcję „Nowe losowanie” lub czyszcząc dane
+          strony w ustawieniach przeglądarki.
+        </li>
+      </ol>
+      <h3 className="my-2 text-center">
+        <strong>Zmiany i aktualizacje Polityki prywatności</strong>
+        <p>
+          <strong>&sect;8</strong>
         </p>
       </h3>
       <ol>

@@ -1,33 +1,33 @@
+import { CoffeeIcon } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
+
+const COFFEE_URL = 'https://buycoffee.to/tinformacje';
+
+const OPTIONS = [
+  { size: 'small', price: '5 zł', icon: 'size-5', rotate: '-rotate-2' },
+  { size: 'medium', price: '10 zł', icon: 'size-6', rotate: 'rotate-1' },
+  { size: 'large', price: '15 zł', icon: 'size-7', rotate: '-rotate-1' }
+];
+
 export const CoffeeList = () => (
-  <div className="w-full max-w-[400px] font-[family-name:var(--font-geist-mono)] text-[#FFFFFF]">
-    <div className="bg-primary box-border rounded-2xl border p-4 text-center shadow-lg">
-      <h3 className="m-0 font-semibold">Postaw kawę za:</h3>
-    </div>
-    <div className="mt-3 flex justify-center gap-2 font-bold">
-      <a
-        href="https://buycoffee.to/tinformacje?coffeeSize=small"
-        className="bg-primary flex w-full flex-col items-center justify-center rounded-2xl border p-4 text-center no-underline shadow-lg"
-        target="_blank"
-        title="Postaw kawę za: 5 zł">
-        <img src="https://buycoffee.to/img/coffee-small-dark.svg" alt="small coffee icon" className="h-9 w-9" />
-        <span className="mt-2">5 zł</span>
-      </a>
-      <a
-        href="https://buycoffee.to/tinformacje?coffeeSize=medium"
-        className="bg-primary flex w-full flex-col items-center justify-center rounded-2xl border p-4 text-center no-underline shadow-lg"
-        target="_blank"
-        title="Postaw kawę za: 10 zł">
-        <img src="https://buycoffee.to/img/coffee-medium-dark.svg" alt="medium coffee icon" className="h-9 w-9" />
-        <span className="mt-2">10 zł</span>
-      </a>
-      <a
-        href="https://buycoffee.to/tinformacje?coffeeSize=large"
-        className="bg-primary flex w-full flex-col items-center justify-center rounded-2xl border p-4 text-center no-underline shadow-lg"
-        target="_blank"
-        title="Postaw kawę za: 15 zł">
-        <img src="https://buycoffee.to/img/coffee-large-dark.svg" alt="large coffee icon" className="h-9 w-9" />
-        <span className="mt-2">15 zł</span>
-      </a>
-    </div>
-  </div>
+  <ul className="grid grid-cols-3 gap-3">
+    {OPTIONS.map(({ size, price, icon, rotate }) => (
+      <li key={size}>
+        <a
+          href={`${COFFEE_URL}?coffeeSize=${size}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(
+            'bg-sun text-ink border-ink shadow-sticker focus-visible:ring-ring flex flex-col items-center gap-2 rounded-xl border-2 px-2 py-4 font-bold transition-transform outline-none hover:-translate-y-1 hover:rotate-0 focus-visible:ring-[3px]',
+            rotate
+          )}
+        >
+          <CoffeeIcon className={icon} />
+          {price}
+          <span className="sr-only">(otwiera się w nowej karcie)</span>
+        </a>
+      </li>
+    ))}
+  </ul>
 );

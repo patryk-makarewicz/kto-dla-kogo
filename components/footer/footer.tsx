@@ -1,25 +1,34 @@
-import { Modal, PrivacyPolicy, TermsOfService } from '@/components/';
-import { FieldDescription } from '@/components/ui';
+import { PrivacyPolicy, TermsOfService } from '@/components/regulations';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui';
 
-export const Footer = () => {
-  const date = new Date();
-  const year = date.getFullYear();
+import packageJson from '@/package.json';
 
-  return (
-    <footer>
-      <div className="text-muted-foreground mb-3 px-6 text-center text-sm">
-        Przez kliknięcie &quot;Zaczynamy&quot;, akceptujesz nasz
-        <span className="inline-block">
-          <Modal buttonLabel="Regulamin" content={<TermsOfService />} />
-        </span>
-        oraz
-        <span className="inline-block">
-          <Modal buttonLabel="Politykę prywatności" content={<PrivacyPolicy />} />
-        </span>
+const LegalDialog = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <Dialog>
+    <DialogTrigger className="hover:text-foreground focus-visible:ring-ring rounded underline underline-offset-4 outline-none focus-visible:ring-[3px]">
+      {label}
+    </DialogTrigger>
+    <DialogContent className="max-w-3xl">
+      <DialogTitle className="sr-only">{label}</DialogTitle>
+      <div className="-mr-3 overflow-y-auto pr-3 text-sm leading-relaxed [&_li]:mb-2 [&_ol]:list-decimal [&_ol]:pl-5">
+        {children}
       </div>
-      <FieldDescription className="px-6 text-center text-xs">
-        Copyright Ⓒ {year} Kto dla kogo?, ver. 1.2.0
-      </FieldDescription>
-    </footer>
-  );
-};
+    </DialogContent>
+  </Dialog>
+);
+
+export const Footer = () => (
+  <footer className="text-muted-foreground mx-auto flex w-full max-w-xl flex-col items-center gap-2 px-4 pb-8 text-center text-sm">
+    <nav aria-label="Dokumenty" className="flex gap-4">
+      <LegalDialog label="Regulamin">
+        <TermsOfService />
+      </LegalDialog>
+      <LegalDialog label="Polityka prywatności">
+        <PrivacyPolicy />
+      </LegalDialog>
+    </nav>
+    <p className="text-xs">
+      © {new Date().getFullYear()} Kto dla kogo?, wersja {packageJson.version}
+    </p>
+  </footer>
+);
