@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Mirrors the header logo: 36px tile, 14px radius, 2px border, 3px sticker shadow, -6deg tilt, scaled ×1.39 -->
+  <g transform="rotate(-6 32 32)">
+    <rect x="9.2" y="9.2" width="50" height="50" rx="19.4" fill="#1b1340" />
+    <rect x="6.4" y="6.4" width="47.2" height="47.2" rx="18" fill="#e8365a" stroke="#1b1340" stroke-width="2.8" />
+    <g
+      transform="translate(30 30) scale(1.157) translate(-12 -12)"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 7v14" />
+      <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+      <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+      <rect x="3" y="7" width="18" height="4" rx="1" />
+    </g>
+  </g>
+</svg>

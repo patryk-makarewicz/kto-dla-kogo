@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![cover](./public/cover.png)
 
-## Getting Started
+# Kto dla kogo?
 
-First, run the development server:
+Losowanie prezentów dla rodziny i znajomych: każdy uczestnik robi prezent **dokładnie jednej** osobie.
+Zamiast 13 drobiazgów w 14-osobowej rodzinie — jeden przemyślany prezent.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+https://kto-dla-kogo.vercel.app
+
+## Funkcje
+
+- okazja z nazwą, budżetem i datą wręczenia,
+- 3–30 uczestników (dowolna liczba, także nieparzysta), unikalne imiona,
+- wykluczenia par (np. małżonkowie nie trafią na siebie),
+- prywatny link dla każdej osoby — wysyłany SMS-em, WhatsAppem lub kopiowany; wynik zakodowany w `/wynik#…`, bez backendu.
+
+## Algorytm
+
+[`lib/draw.ts`](lib/draw.ts): najpierw losowanie Fisher–Yates z odrzucaniem (rozkład jednostajny),
+a gdy wykluczenia są bardzo restrykcyjne — randomizowane dopasowanie dwudzielne (algorytm Kuhna).
+Jeśli poprawne przypisanie nie istnieje, zwraca `{ ok: false, reason: 'impossible' }`.
+
+## Struktura
+
+```
+app/                 trasy: / (start), /losowanie (kreator), /wynik (odkrycie wyniku), /dotacja
+features/draw/       kreator: kroki, stan (Context + useReducer + localStorage)
+features/reveal/     strona odkrycia wyniku
+lib/                 czysta logika: draw, share, phone, storage, format
+model/               schematy zod
+components/          współdzielone: header, footer, coffee, regulations, ui (shadcn)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Uruchomienie
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm install
+npm run dev
+npm test
+npm run lint
+npm run build
+```
