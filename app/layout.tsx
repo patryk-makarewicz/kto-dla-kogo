@@ -1,60 +1,52 @@
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Bricolage_Grotesque } from 'next/font/google';
 
-import { UsersProvider } from '@/providers/';
+import { DrawProvider } from '@/features/draw/state/draw-store';
 
 import { Toaster } from '@/components/ui/sonner';
 import PageLayout from '@/layouts/page-layout';
 
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin']
+const bricolage = Bricolage_Grotesque({
+  variable: '--font-bricolage',
+  subsets: ['latin', 'latin-ext']
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin']
-});
+const DESCRIPTION = 'Wylosujcie, kto komu robi prezent. Jeden przemyślany prezent zamiast wielu drobiazgów.';
 
 export const metadata: Metadata = {
-  title: 'Kto dla kogo?',
-  description: 'Wylosuj osobę, której zrobisz prezent',
+  title: 'Kto dla kogo? — losowanie prezentów',
+  description: DESCRIPTION,
   category: 'website',
-  keywords: ['patryk makarewicz', 'makadev', 'prezent', 'prezenty', 'losowanie', 'losowanie prezentu'],
-  authors: [
-    { name: 'Patryk Makarewicz' },
-    {
-      name: 'Patryk Makarewicz',
-      url: 'https://www.linkedin.com/in/patryk-makarewicz/'
-    }
-  ],
+  keywords: ['losowanie prezentów', 'kto dla kogo', 'secret santa', 'mikołajki', 'wigilia', 'prezenty', 'makadev'],
+  authors: [{ name: 'Patryk Makarewicz', url: 'https://www.linkedin.com/in/patryk-makarewicz/' }],
   openGraph: {
     title: 'Kto dla kogo?',
-    description: 'Wylosuj osobę, której zrobisz prezent',
+    description: DESCRIPTION,
     images: ['/cover.png'],
     url: 'https://kto-dla-kogo.vercel.app',
-    siteName: 'Kto dla kogo?'
+    siteName: 'Kto dla kogo?',
+    locale: 'pl_PL'
   },
-  metadataBase: new URL('https://kto-dla-kogo.vercel.app'),
-  icons: {
-    icon: '/favicon.ico'
-  }
+  metadataBase: new URL('https://kto-dla-kogo.vercel.app')
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f1edff' },
+    { media: '(prefers-color-scheme: dark)', color: '#15102e' }
+  ]
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <UsersProvider>
+    <html lang="pl">
+      <body className={`${bricolage.variable} font-sans antialiased`}>
+        <DrawProvider>
           <PageLayout>{children}</PageLayout>
-        </UsersProvider>
-        <Toaster />
+        </DrawProvider>
+        <Toaster position="top-center" />
       </body>
     </html>
   );
